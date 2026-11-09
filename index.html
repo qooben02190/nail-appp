@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>美甲紀錄</title>
+<meta name="apple-mobile-web-app-title" content="美甲紀錄">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="apple-touch-icon.png">
+<style>
+  body{margin:0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:24px;box-sizing:border-box;
+       background:#faf7f5;color:#2b2326;font-family:-apple-system,"PingFang TC","Noto Sans TC",sans-serif;text-align:center;line-height:1.6}
+  img{width:96px;height:96px;border-radius:22px}
+  a{color:#c96f86}
+  .hidden{display:none}
+</style>
+</head>
+<body>
+<img src="apple-touch-icon.png" alt="">
+<div id="loading">開啟中…<br><a id="go" href="#">沒有自動開啟請點這裡</a></div>
+<div id="howto" class="hidden">
+  <strong>加到桌面</strong><br>
+  點 Safari 下方的分享按鈕<br>→「加入主畫面」→「新增」
+</div>
+<script>
+  // ↓↓↓ 把這裡換成你的 App 網址（結尾是 /exec） ↓↓↓
+  const APP_URL = 'https://script.google.com/macros/s/AKfycbzF-Kd7v6Y9si1ZFwBaHVgnkrtWtarnqaYDJuQa_2oxehXL-UvnqeDE5c5HB3kKMhZ0iA/exec';
+  // ↑↑↑ 只需要改這一行 ↑↑↑
+
+  document.getElementById('go').href = APP_URL;
+
+  if (location.search.indexOf('add') !== -1) {
+    // 網址加上 ?add 時：停在這頁讓你加入主畫面，並把網址整理乾淨
+    history.replaceState(null, '', location.pathname);
+    document.getElementById('loading').classList.add('hidden');
+    document.getElementById('howto').classList.remove('hidden');
+  } else if (APP_URL.indexOf('https://') === 0) {
+    // 從桌面圖示打開：直接跳到 App
+    location.replace(APP_URL);
+  }
+</script>
+</body>
+</html>
